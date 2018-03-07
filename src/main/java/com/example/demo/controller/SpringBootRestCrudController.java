@@ -72,7 +72,7 @@ public class SpringBootRestCrudController {
 	// Use Postman with GET request and Headers as 
 	@RequestMapping(value="/getEmployee/{empNo}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@ResponseBody
-	public Employee getEmployee(@PathVariable String empNo) {
+	public Employee getEmployee(@PathVariable("empNo") String empNo) {
 		return employeeDAO.getEmployee(empNo);
 	}
 	
@@ -103,7 +103,7 @@ public class SpringBootRestCrudController {
 	}
 	
 	@RequestMapping (value = "/deleteEmployee/{empNo}", method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	public Map<String, Employee> deleteEmployee(@PathVariable String empNo) {
+	public Map<String, Employee> deleteEmployee(@PathVariable("empNo") String empNo) {
 		return employeeDAO.deleteEmployee(empNo);
 	}
 	
