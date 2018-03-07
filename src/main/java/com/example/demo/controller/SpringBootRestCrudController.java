@@ -69,6 +69,7 @@ public class SpringBootRestCrudController {
 	// This is a GET request to retreive the resource (employee)
 	// {empNo} value will be dynamically passed from the url
 	// @PathVariable to be added for "empNo" parameter, to indicate empNo will be dynamically passed as a parameter 
+	// Use Postman with GET request and Headers as 
 	@RequestMapping(value="/getEmployee/{empNo}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@ResponseBody
 	public Employee getEmployee(@PathVariable String empNo) {
@@ -77,21 +78,33 @@ public class SpringBootRestCrudController {
 	
 	// This is a POST method for creating a resource (create a employee)
 	// Employee information will be passed as a JSON or XML and "@RequestBody" will be mapped with the passed employee object
+	// Below sample data to add Employee
+	//	{
+	//	    "empNo": "04",
+	//	    "empName": "John04",
+	//	    "empPosition": "Analyst04"
+	//	}
 	@RequestMapping(value="/addEmployee", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@ResponseBody
 	public Map<String, Employee> addEmployee(@RequestBody Employee addEmployee) {
 		return employeeDAO.addEmployee(addEmployee);
 	}
 	
+	// Below sample data to update Employee using Postman with PUT request and update headers and body with the below JSON
+	//	{
+	//	    "empNo": "04",
+	//	    "empName": "John04",
+	//	    "empPosition": "Analyst04"
+	//	}
 	@RequestMapping (value="/updateEmployee", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseBody
 	public Map<String, Employee> updateEmployee(@RequestBody Employee updateEmployee) {
 		return employeeDAO.updateEmployee(updateEmployee);
 	}
 	
-	@RequestMapping
-	public void deleteEmployee(String empNo) {
-		Map<String, Employee> employeeMap = employeeDAO.deleteEmployee(empNo);
+	@RequestMapping (value = "/deleteEmployee/{empNo}", method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	public Map<String, Employee> deleteEmployee(@PathVariable String empNo) {
+		return employeeDAO.deleteEmployee(empNo);
 	}
 	
 
