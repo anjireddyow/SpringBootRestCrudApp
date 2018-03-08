@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,6 +48,12 @@ public class SpringBootRestCrudController {
 	private SpringBootRestCrudService springBootRestCrudService;
 	
 	/**
+	 * This property value will be retrieved from application.properties file welcome.message property
+	 */
+	@Value("${welcome.message}")
+	private String welcomeMessage;
+	
+	/**
 	 * Sample Welcome page
 	 * 
 	 * @return
@@ -54,7 +61,7 @@ public class SpringBootRestCrudController {
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	@ResponseBody
 	public String welcome() {
-		return "Hello, welcome to Spring Boot App with Restful";
+		return welcomeMessage;
 	}
 	
 	/**
