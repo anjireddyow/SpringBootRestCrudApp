@@ -49,6 +49,28 @@
 			<optional>true</optional>
 		</dependency>
 		
+		<!-- Spring security: Adding this tag will generate the default password with username as "user" 
+		like "Using generated security password: 0c341556-0d19-42f2-8f09-8670a57b5b27" while running the spring boot app.
+		This will be your password for your all Rest Service calls
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>-->
+		
+		<!--  Embedded Tomcat -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+		</dependency>
+		
+		<!--  JSP Support 
+		<dependency>
+			<artifactId>org.apache.tomcat.embed</artifactId>
+			<groupId>tomcat-embed-jasper</groupId>
+			<scope>provided</scope>
+		</dependency> -->
+		
+		<!--  Spring boot test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

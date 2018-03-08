@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dao.EmployeeDAO;
+import com.example.demo.exception.EmployeeNotFoundException;
 import com.example.demo.model.Employee;
+import com.example.demo.service.SpringBootRestCrudService;
 
 @RestController
 public class SpringBootRestCrudController {
@@ -39,9 +41,17 @@ public class SpringBootRestCrudController {
   	 * </dependency>
 	 */
 	@Autowired
-	public EmployeeDAO employeeDAO;
+	private EmployeeDAO employeeDAO;
 	
-	@RequestMapping("/")
+	@Autowired
+	private SpringBootRestCrudService springBootRestCrudService;
+	
+	/**
+	 * Sample Welcome page
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value="/", method = RequestMethod.GET)
 	@ResponseBody
 	public String welcome() {
 		return "Hello, welcome to Spring Boot App with Restful";
@@ -63,7 +73,7 @@ public class SpringBootRestCrudController {
             produces = { MediaType.APPLICATION_JSON_VALUE, //
                     MediaType.APPLICATION_XML_VALUE })	@ResponseBody
 	public List<Employee> getEmployees() {
-		return employeeDAO.getEmployeeList();
+		return springBootRestCrudService.getEmployeeList();
 	}
 	
 	// This is a GET request to retreive the resource (employee)
@@ -73,6 +83,13 @@ public class SpringBootRestCrudController {
 	@RequestMapping(value="/getEmployee/{empNo}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@ResponseBody
 	public Employee getEmployee(@PathVariable("empNo") String empNo) {
+		if( "04".equals(empNo)) {
+			throw new RuntimeException("Employee Number should not be 04");
+		}
+		
+		if("05".equals(empNo)) {
+			throw new EmployeeNotFoundException("Employee Number should not be 05");
+		}
 		return employeeDAO.getEmployee(empNo);
 	}
 	
