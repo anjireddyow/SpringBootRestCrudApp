@@ -44,7 +44,7 @@ public class SpringBootRestCrudController {
 	@RequestMapping("/")
 	@ResponseBody
 	public String welcome() {
-		return "Welcome to Spring Boot App with Restful";
+		return "Hello, welcome to Spring Boot App with Restful";
 	}
 	
 	/**

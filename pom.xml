@@ -42,6 +42,13 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		
+		<!--  Spring Boot Dev Tools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -55,6 +62,21 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!--  The Spring Boot developer tools are not limited to 
+				local development. You can also use several features when 
+				running applications remotely. Remote support is opt-in.
+				 To enable it, you need to make sure that devtools is included 
+				 in the repackaged archive, as shown in the following listing: 
+				 Then you need to set a spring.devtools.remote.secret property, as shown in the following example:
+				 spring.devtools.remote.secret=mysecret
+				 Remote devtools support is provided in two parts: 
+				 a server-side endpoint that accepts connections and a client application 
+				 that you run in your IDE. The server component is automatically 
+				 enabled when the spring.devtools.remote.secret property is set. 
+				 The client component must be launched manually.-->
+				<configuration>
+					<excludeDevtools>false</excludeDevtools>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
