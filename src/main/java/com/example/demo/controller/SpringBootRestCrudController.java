@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.config.CustomConfigurationProperties;
 import com.example.demo.dao.EmployeeDAO;
 import com.example.demo.exception.EmployeeNotFoundException;
 import com.example.demo.model.Employee;
@@ -53,6 +54,9 @@ public class SpringBootRestCrudController {
 	@Value("${welcome.message}")
 	private String welcomeMessage;
 	
+	@Autowired
+	private CustomConfigurationProperties customConfigurationProperties;
+	
 	/**
 	 * Sample Welcome page
 	 * 
@@ -61,7 +65,7 @@ public class SpringBootRestCrudController {
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	@ResponseBody
 	public String welcome() {
-		return welcomeMessage;
+		return welcomeMessage+ customConfigurationProperties.getMessage() + customConfigurationProperties.getAge();
 	}
 	
 	/**
