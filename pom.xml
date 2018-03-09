@@ -52,10 +52,14 @@
 		<!-- Spring security: Adding this tag will generate the default password with username as "user" 
 		like "Using generated security password: 0c341556-0d19-42f2-8f09-8670a57b5b27" while running the spring boot app.
 		This will be your password for your all Rest Service calls
+		
+		Go and see the SpringSecurityConfig class in this project for user name and password details
+		
+		-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>-->
+		</dependency>
 		
 		<!--  Embedded Tomcat -->
 		<dependency>
