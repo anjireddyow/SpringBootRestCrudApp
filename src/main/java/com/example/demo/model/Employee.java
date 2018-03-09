@@ -6,6 +6,10 @@ public class Employee {
 	private String empName;
 	private String empPosition;
 	
+	public Employee() {
+		
+	}
+	
 	public Employee(String empNo, String empName, String empPosition) {
 		this.empNo = empNo;
 		this.empName = empName;

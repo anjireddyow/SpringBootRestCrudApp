@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.example.demo.config.CustomConfigurationProperties;
 import com.example.demo.dao.EmployeeDAO;
+import com.example.demo.dao.EmployeeJDBCTemplateDAO;
 import com.example.demo.exception.EmployeeNotFoundException;
 import com.example.demo.model.Employee;
 import com.example.demo.service.SpringBootRestCrudService;
@@ -48,6 +45,9 @@ public class SpringBootRestCrudController {
 	 */
 	@Autowired
 	private EmployeeDAO employeeDAO;
+	
+	@Autowired
+	private EmployeeJDBCTemplateDAO employeeJDBCTemplateDAO;
 	
 	@Autowired
 	private SpringBootRestCrudService springBootRestCrudService;
@@ -88,7 +88,8 @@ public class SpringBootRestCrudController {
             produces = { MediaType.APPLICATION_JSON_VALUE, //
                     MediaType.APPLICATION_XML_VALUE })	@ResponseBody
 	public List<Employee> getEmployees() {
-		return springBootRestCrudService.getEmployeeList();
+//		return springBootRestCrudService.getEmployeeList();
+		return employeeJDBCTemplateDAO.getEmployees();
 	}
 	
 	// This is a GET request to retreive the resource (employee)
