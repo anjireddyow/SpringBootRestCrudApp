@@ -14,8 +14,8 @@ Features included
 
 Required Tools : 
 
-Eclipse with Spring tools, git, maven plugins
-GIT installation in location
-GITHub Repository
-PostMan
-MYSQL Database
+1. Eclipse with Spring tools, git, maven plugins
+2. GIT installation in location
+3. GITHub Repository
+4. PostMan
+5. MYSQL Database
