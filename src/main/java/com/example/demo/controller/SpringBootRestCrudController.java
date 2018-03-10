@@ -62,6 +62,8 @@ public class SpringBootRestCrudController {
 	/**
 	 * Sample Welcome page
 	 * 
+	 * You can also use @GetMapping instead of @RequestMapping for request methods of GET
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
