@@ -71,6 +71,15 @@ public class SpringBootRestCrudController {
 	public String welcome() {
 		return welcomeMessage + customConfigurationProperties.getMessage() + customConfigurationProperties.getAge();
 	}
+	
+	/**
+	 * 
+	 * @return default spring boot login page
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(){
+	     return "login";
+	}
 
 	/**
 	 * To retrieve

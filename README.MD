@@ -1,5 +1,7 @@
 Features included
 
+## Login details please see the SpringSecurityConfig.java
+
 1. Logging Configuration
 2. Spring Profiles (Dev, Production and common properties)
 3. Spring JDBC
@@ -19,3 +21,4 @@ Required Tools :
 3. GITHub Repository
 4. PostMan
 5. MYSQL Database
+6. Java

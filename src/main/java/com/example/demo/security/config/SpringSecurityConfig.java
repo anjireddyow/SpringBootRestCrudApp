@@ -1,9 +1,11 @@
 package com.example.demo.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  *
  */
 @Configuration
+@EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	/**
@@ -29,7 +32,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 //	
 	
 	/**
-	 * This method will indicate the BCrypt Password Encoder
+	 * This method will indicate the BCrypt Password Encoder. This password encoder should be used to encode the password.
+	 * 
 	 * @return
 	 */
 	@Bean
@@ -48,26 +52,34 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 //	    return new MD5PasswordEncoder();
 //	}
 	
-	
-	public void configure(AuthenticationManagerBuilder amb) throws Exception {
-		amb.inMemoryAuthentication().withUser("admin").password("admin").roles("USER");
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder authenticationBuilderManager) throws Exception {
+		
+		// Use BCrypt Password encoder. Since you have defined your password encoder is BCrypt Password encoder
+		authenticationBuilderManager.inMemoryAuthentication()
+		.withUser("john").password(bCryptPasswordEncoder().encode("secretPasswd")).roles("ADMIN") // This will assign Admin role for all the requests come with username as "admin" and password as "admin"
+		.and().withUser("peter").password(bCryptPasswordEncoder().encode("secretPasswd")).roles("USER"); // This will assign User role for all the requests come with username as "user" and password as "user"
 	}
 	
-	public void configure (HttpSecurity httpSecurity) throws Exception{
-		// Allow all urls without spring security
-//			httpSecurity.authorizeRequests().anyRequest().permitAll().and().httpBasic().and().csrf().disable();
-		
+	public void configure (HttpSecurity httpSecurity) throws Exception{	
 		// Authorize all the urls with spring security
-//		httpSecurity.authorizeRequests().antMatchers("/**").hasRole("USER").and().httpBasic().and().csrf().disable();
+		httpSecurity.authorizeRequests().antMatchers("/emp**").hasAnyRole("USER","ADMIN").antMatchers("/add**","/update**","/delete**").hasAnyRole("ADMIN").anyRequest().authenticated().and().formLogin().permitAll().and().httpBasic().and().csrf().disable();
 		
-		httpSecurity.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated();
+		httpSecurity.csrf().disable(); 		// Disables CSRF protection
 		
-		httpSecurity.formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+		httpSecurity.headers().frameOptions().disable(); // Disables X-Frame-Options in Spring Security for access to H2 database console. By default, Spring Security will protect against CRSF attacks.
 		
-		// Disables CSRF protection
-		httpSecurity.csrf().disable();
+		// Allow all urls without spring security
+//		httpSecurity.authorizeRequests().anyRequest().permitAll().and().httpBasic().and().csrf().disable();
 		
-		// Disables X-Frame-Options in Spring Security for access to H2 database console. By default, Spring Security will protect against CRSF attacks.
-		httpSecurity.headers().frameOptions().disable();
+//		httpSecurity.authorizeRequests().antMatchers("/emp**").permitAll() // Allows all requests to the /** paths
+//		httpSecurity.authorizeRequests().antMatchers("/**").hasRole("USER")
+//		.anyRequest().permitAll(); // Secures all other paths of the application to require authentication
+//		.and()
+//		.formLogin().loginPage("/login").permitAll() // Allows everyone to view a custom /login page specified by loginPage()
+//		.and()
+//		.logout().permitAll(); //Permits all to make logout calls
+		
+
 	}
 }
