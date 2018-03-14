@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.demo.common.CommonConstants;
 import com.example.demo.service.CustomerUserDetailsService;
 
 /**
@@ -43,6 +44,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	public PasswordEncoder bCryptPasswordEncoder() {
+		logger.info(CommonConstants.APP_NAME_FOR_LOG + "Creating BCryptPasswordEncoder Object");
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 		// BcryptPasswordEncoder unit test or encoding as password
@@ -94,6 +96,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	 * 
 	 */
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		logger.info(CommonConstants.APP_NAME_FOR_LOG + "Spring security validating the username, password and authorities against Database");
 		auth.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 
@@ -101,10 +104,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	 * 
 	 */
 	public void configure(HttpSecurity httpSecurity) throws Exception {
+		logger.info(CommonConstants.APP_NAME_FOR_LOG + "Authorizing all the application urls with spring security using roles/authorities");
 		// Authorize all the urls with spring security
 		httpSecurity.authorizeRequests().antMatchers("/emp**").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/add**", "/update**", "/delete**").hasAnyRole("ADMIN").anyRequest().authenticated().and()
-				.formLogin().permitAll().and().httpBasic().and().csrf().disable();
+				.formLogin().permitAll().and().httpBasic().and().exceptionHandling().accessDeniedPage("/Access_Denied");
 
 		httpSecurity.csrf().disable(); // Disables CSRF protection
 

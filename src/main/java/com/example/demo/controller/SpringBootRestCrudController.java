@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.config.CustomConfigurationProperties;
-import com.example.demo.dao.EmployeeDAO;
-import com.example.demo.dao.EmployeeJDBCTemplateDAO;
+import com.example.demo.dao.impl.EmployeeDaoImpl;
 import com.example.demo.exception.EmployeeNotFoundException;
 import com.example.demo.model.Employee;
+import com.example.demo.service.SpringBootRestCrudJDBCService;
 import com.example.demo.service.SpringBootRestCrudService;
 
 @RestController
@@ -41,10 +41,10 @@ public class SpringBootRestCrudController {
 	 * <artifactId>jackson-dataformat-xml</artifactId> </dependency>
 	 */
 	@Autowired
-	private EmployeeDAO employeeDAO;
+	private EmployeeDaoImpl employeeDAO;
 
 	@Autowired
-	private EmployeeJDBCTemplateDAO employeeJDBCTemplateDAO;
+	private SpringBootRestCrudJDBCService springBootRestCrudJDBCService;
 
 	@Autowired
 	private SpringBootRestCrudService springBootRestCrudService;
@@ -62,7 +62,8 @@ public class SpringBootRestCrudController {
 	/**
 	 * Sample Welcome page
 	 * 
-	 * You can also use @GetMapping instead of @RequestMapping for request methods of GET
+	 * You can also use @GetMapping instead of @RequestMapping for request methods
+	 * of GET
 	 * 
 	 * @return
 	 */
@@ -71,14 +72,14 @@ public class SpringBootRestCrudController {
 	public String welcome() {
 		return welcomeMessage + customConfigurationProperties.getMessage() + customConfigurationProperties.getAge();
 	}
-	
+
 	/**
 	 * 
 	 * @return default spring boot login page
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(){
-	     return "login";
+	public String login() {
+		return "login";
 	}
 
 	/**
@@ -146,7 +147,7 @@ public class SpringBootRestCrudController {
 	public String addEmployee(@RequestBody Employee addEmployee) {
 		String addEmployeeStatus = "";
 		try {
-			addEmployeeStatus = employeeJDBCTemplateDAO.addEmployee(addEmployee);
+			addEmployeeStatus = springBootRestCrudJDBCService.addEmployee(addEmployee);
 		} catch (DataAccessException dae) {
 			throw new EmployeeNotFoundException("Unable to add Employee" + dae.getMessage());
 		}
@@ -174,7 +175,7 @@ public class SpringBootRestCrudController {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public void updateEmployee(@RequestBody Employee updateEmployee) {
-		employeeJDBCTemplateDAO.updateEmployee(updateEmployee);
+		springBootRestCrudJDBCService.updateEmployee(updateEmployee);
 	}
 
 	// @RequestMapping (value = "/deleteEmployee/{empNo}", method =
@@ -189,7 +190,7 @@ public class SpringBootRestCrudController {
 	@RequestMapping(value = "/deleteEmployee/{empNo}", method = RequestMethod.DELETE, produces = {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public void deleteEmployee(@PathVariable("empNo") int empNo) {
-		employeeJDBCTemplateDAO.deleteEmployee(empNo);
+		springBootRestCrudJDBCService.deleteEmployee(empNo);
 	}
 
 }

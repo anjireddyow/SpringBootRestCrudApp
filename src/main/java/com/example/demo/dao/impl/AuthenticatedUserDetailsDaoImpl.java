@@ -15,11 +15,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.dao.AuthenticatedUserDetailsDao;
 import com.example.demo.model.Role;
 import com.example.demo.model.User;
 
+/**
+ * @see AuthenticatedUserDetailsDao
+ *
+ */
 @Repository
-public class AuthenticatedUserDetailsDaoImpl {
+public class AuthenticatedUserDetailsDaoImpl implements AuthenticatedUserDetailsDao {
 
 	private JdbcTemplate jdbcTemplate;
 
@@ -28,15 +33,18 @@ public class AuthenticatedUserDetailsDaoImpl {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	/**
+	 * @see AuthenticatedUserDetailsDao
+	 */
 	public User loadUserDetails(String userName) {
 		String userDetailsSQL = "SELECT * FROM springboot.user, role INNER JOIN user_role WHERE user_role.user_id = user.user_id and user_role.role_id=role.role_id and user_name = ?";
-		 PasswordEncoder encoder = new BCryptPasswordEncoder();
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		User user = this.jdbcTemplate.query(userDetailsSQL, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {
 				ps.setString(1, userName);
 			}
-			
+
 		}, new ResultSetExtractor<User>() {
 
 			@Override
@@ -46,12 +54,12 @@ public class AuthenticatedUserDetailsDaoImpl {
 				if (rs.next()) {
 					user.setUserId(rs.getInt("user_id"));
 					user.setUserName(rs.getString("user_name"));
-					
-					 String password = rs.getString("password");
-					 if(password != null) {
-						 password = encoder.encode(password);
-					 }
-					 user.setPassword(password);
+
+					String password = rs.getString("password");
+					if (password != null) {
+						password = encoder.encode(password);
+					}
+					user.setPassword(password);
 					user.setActiveStatus(rs.getString("isAccountActive"));
 					Role role = new Role();
 					role.setRoleId(rs.getInt("role_id"));
