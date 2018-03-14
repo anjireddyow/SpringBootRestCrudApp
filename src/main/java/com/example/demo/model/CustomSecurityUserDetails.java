@@ -23,6 +23,9 @@ public class CustomSecurityUserDetails implements UserDetails{
 		this.user = user;
 	}
 	
+	/**
+	 * Please assign "ROLE_" for each role in authoritiese. Since Spring security by default will include ROLE_ for each role
+	 */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub

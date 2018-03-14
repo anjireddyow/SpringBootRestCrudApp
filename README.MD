@@ -1,6 +1,8 @@
 Features included
 
 ## This application Login details please see the SpringSecurityConfig.java (or) users database
+john/secret - USER, ADMIN
+peter/secret - USER
 
 1. Logging Configuration
 2. Spring Profiles (Dev, Production and common properties)

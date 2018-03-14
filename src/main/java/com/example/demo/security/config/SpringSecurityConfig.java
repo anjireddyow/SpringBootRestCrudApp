@@ -97,6 +97,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 
+	/**
+	 * 
+	 */
 	public void configure(HttpSecurity httpSecurity) throws Exception {
 		// Authorize all the urls with spring security
 		httpSecurity.authorizeRequests().antMatchers("/emp**").hasAnyRole("USER", "ADMIN")
@@ -159,6 +162,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		// .deleteCookies("JSESSIONID")
 		// .permitAll();
 
+//		.and().exceptionHandling().accessDeniedPage("/Access_Denied");
 	}
 
 	/**
