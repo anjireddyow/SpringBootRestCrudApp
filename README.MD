@@ -1,6 +1,6 @@
 Features included
 
-## Login details please see the SpringSecurityConfig.java
+## This application Login details please see the SpringSecurityConfig.java (or) users database
 
 1. Logging Configuration
 2. Spring Profiles (Dev, Production and common properties)
@@ -20,5 +20,7 @@ Required Tools :
 2. GIT installation in location
 3. GITHub Repository
 4. PostMan
-5. MYSQL Database
+5. MYSQL Database : database name : springboot (see admin.properties file for more information)
 6. Java
+7. Install JSON Viewer in your browser
+8. 

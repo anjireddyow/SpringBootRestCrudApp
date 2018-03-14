@@ -6,6 +6,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+/**
+ * Spring Boot Rest application with Spring security
+ * 
+ * @author 
+ *
+ */
 @SpringBootApplication
 public class SpringBootRestCrudAppApplication {
 	
