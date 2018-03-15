@@ -18,11 +18,11 @@ peter/secret - USER
 
 Required Tools : 
 
-1. Eclipse with Spring tools, git, maven plugins
+1. Eclipse (oxygen) with Spring tools, git, maven plugins
 2. GIT installation in location
 3. GITHub Repository
 4. PostMan
-5. MYSQL Database : database name : springboot (see admin.properties file for more information)
-6. Java
+5. MYSQL Database (6+): database name : springboot (see admin.properties file for more information)
+6. Java 1.8
 7. Install JSON Viewer in your browser
 8. 

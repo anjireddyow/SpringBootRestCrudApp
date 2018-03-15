@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -29,98 +29,88 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
-		<!-- Enable below settings for Custom log4j2 configuration for spring boot and create log4j2-spring.xml in classpath 
+
+		<!-- Enable below settings for Custom log4j2 configuration for spring boot 
+			and create log4j2-spring.xml in classpath <dependency> <groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-starter</artifactId> <exclusions> <exclusion> <groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-starter-logging</artifactId> </exclusion> </exclusions> 
+			</dependency> <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-log4j2</artifactId> 
+			</dependency> -->
+
+		<!-- jackson-dataformat-xml to convert the XML to java and Java to XML -->
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter</artifactId>
-		    <exclusions>
-		        <exclusion>
-		            <groupId>org.springframework.boot</groupId>
-		            <artifactId>spring-boot-starter-logging</artifactId>
-		        </exclusion>
-		    </exclusions>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-log4j2</artifactId>
-		</dependency>  -->
-		
-		<!-- jackson-dataformat-xml to convert the XML to java and Java to XML  -->
-		<dependency>
-		  <groupId>com.fasterxml.jackson.dataformat</groupId>
-		  <artifactId>jackson-dataformat-xml</artifactId>
-		</dependency>
-		
-		<!--  Spring Boot actuator configuration -->
+
+		<!-- Spring Boot actuator configuration -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		
-		<!--  Spring Boot Dev Tools -->
+
+		<!-- Spring Boot Dev Tools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
-		<!-- Spring security: Adding this tag will generate the default password with username as "user" 
-		like "Using generated security password: 0c341556-0d19-42f2-8f09-8670a57b5b27" while running the spring boot app.
-		This will be your password for your all Rest Service calls
-		
-		Go and see the SpringSecurityConfig class in this project for user name and password details
-		
-		-->
+
+		<!-- Spring security: Adding this tag will generate the default password 
+			with username as "user" like "Using generated security password: 0c341556-0d19-42f2-8f09-8670a57b5b27" 
+			while running the spring boot app. This will be your password for your all 
+			Rest Service calls Go and see the SpringSecurityConfig class in this project 
+			for user name and password details -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		
-		<!--  Embedded Tomcat -->
+
+		<!-- Embedded Tomcat -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
-		
-		<!--  JSP Support 
-		<dependency>
-			<artifactId>org.apache.tomcat.embed</artifactId>
-			<groupId>tomcat-embed-jasper</groupId>
-			<scope>provided</scope>
-		</dependency> -->
-		
-		<!--  Mysql Connector -->
+
+		<!-- JSP Support <dependency> <artifactId>org.apache.tomcat.embed</artifactId> 
+			<groupId>tomcat-embed-jasper</groupId> <scope>provided</scope> </dependency> -->
+
+		<!-- Mysql Connector -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		
-		<!--  Spring boot JDBC -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
-		
-		<!-- Use either Spring-boot-starter-jdbc or spring-boot-starter-data-jpa Spring  JDBC
+
+		<!-- Spring boot JDBC -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>-->
-		
-		
-		<!--  Spring boot test -->
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+		<!-- Use either Spring-boot-starter-jdbc or spring-boot-starter-data-jpa 
+			Spring JDBC <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-data-jpa</artifactId> 
+			</dependency> -->
+
+
+		<!-- Spring boot test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<!--  This will be added to process the Custom Message properties class for application.properties custom messages -->
+		<!-- This will be added to process the Custom Message properties class 
+			for application.properties custom messages -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<!-- As we’ll be using Java 8 date and time classes, we first need to add a Maven dependency for the Jackson JSR310 converters. They take care of converting Java 8 date and time classes to JSON representation using the @JsonFormat annotation: -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -129,18 +119,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!--  The Spring Boot developer tools are not limited to 
-				local development. You can also use several features when 
-				running applications remotely. Remote support is opt-in.
-				 To enable it, you need to make sure that devtools is included 
-				 in the repackaged archive, as shown in the following listing: 
-				 Then you need to set a spring.devtools.remote.secret property, as shown in the following example:
-				 spring.devtools.remote.secret=mysecret
-				 Remote devtools support is provided in two parts: 
-				 a server-side endpoint that accepts connections and a client application 
-				 that you run in your IDE. The server component is automatically 
-				 enabled when the spring.devtools.remote.secret property is set. 
-				 The client component must be launched manually.-->
+				<!-- The Spring Boot developer tools are not limited to local development. 
+					You can also use several features when running applications remotely. Remote 
+					support is opt-in. To enable it, you need to make sure that devtools is included 
+					in the repackaged archive, as shown in the following listing: Then you need 
+					to set a spring.devtools.remote.secret property, as shown in the following 
+					example: spring.devtools.remote.secret=mysecret Remote devtools support is 
+					provided in two parts: a server-side endpoint that accepts connections and 
+					a client application that you run in your IDE. The server component is automatically 
+					enabled when the spring.devtools.remote.secret property is set. The client 
+					component must be launched manually. -->
 				<configuration>
 					<excludeDevtools>false</excludeDevtools>
 				</configuration>

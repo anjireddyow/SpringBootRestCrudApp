@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.demo.common.CommonConstants;
+import com.example.demo.exception.handler.CustomAccessDeniedHandler;
 import com.example.demo.service.CustomerUserDetailsService;
 
 /**
@@ -36,6 +37,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private CustomerUserDetailsService customUserDetailsService;
 
+	@Autowired
+	private CustomAccessDeniedHandler customAccessDeniedHandler;
+	
 	/**
 	 * This method will indicate the BCrypt Password Encoder. This password encoder
 	 * should be used to encode the password.
@@ -108,7 +112,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Authorize all the urls with spring security
 		httpSecurity.authorizeRequests().antMatchers("/emp**").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/add**", "/update**", "/delete**").hasAnyRole("ADMIN").anyRequest().authenticated().and()
-				.formLogin().permitAll().and().httpBasic().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+				.formLogin().permitAll().and().httpBasic()
+				.and().exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
+//				.and().exceptionHandling().accessDeniedPage("/accessDenied");
 
 		httpSecurity.csrf().disable(); // Disables CSRF protection
 
