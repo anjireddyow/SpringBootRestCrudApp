@@ -6,7 +6,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>SpringBootRestCrudApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>SpringBootRestCrudApp</name>
 	<description>Spring Boot + Restful</description>
@@ -63,6 +63,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Mysql Connector -->
@@ -128,6 +129,7 @@
 					enabled when the spring.devtools.remote.secret property is set. The client 
 					component must be launched manually. -->
 				<configuration>
+					<mainClass>com.example.demo.SpringBootRestCrudAppApplication</mainClass>
 					<excludeDevtools>false</excludeDevtools>
 				</configuration>
 			</plugin>
