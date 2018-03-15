@@ -67,6 +67,18 @@ public class SpringBootRestCrudAppApplication implements CommandLineRunner{
 //	 *  <properties>
 //      <start-class>com.example.demo.SpringBootRestCrudAppApplication</start-class>
 //</properties>
+//(or) Define the main class here 
+//<build>
+//<plugins>
+//    <plugin>
+//        <groupId>org.springframework.boot</groupId>
+//        <artifactId>spring-boot-maven-plugin</artifactId>
+//        <configuration>
+//            <mainClass>com.mkyong.SpringBootWebApplication</mainClass>
+//        </configuration>
+//    </plugin>
+//</plugins>
+//</build>
 //
 //
 //	 *  <!-- marked the embedded servlet container as provided -->
