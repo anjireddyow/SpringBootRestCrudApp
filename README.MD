@@ -15,6 +15,7 @@ peter/secret - USER
 9. Spring boot Custom HealthCheck
 10. Custom properties using java configuration
 11. Generic Exception Handling
+12. Changing jar file to war file code in SpringBootRestCrudAppApplication.java file
 
 Required Tools : 
 
